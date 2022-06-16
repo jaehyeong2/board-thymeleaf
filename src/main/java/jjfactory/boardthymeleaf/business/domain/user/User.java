@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -46,6 +47,10 @@ public class User extends BaseTimeEntity {
 
     @Comment("활동상태 : 활동 / 휴면")
     private Boolean activeState;
+
+    @ElementCollection(fetch = FetchType.LAZY) //이거 없으면 에러남
+    @Enumerated(EnumType.STRING)
+    private List<Role> roles = new ArrayList<>();
 
     @Builder
     public User(String name, String username, String password, String phone, String email, Boolean activeState, Gender gender, int warningCount, List<String> roles, int activePoint) {
