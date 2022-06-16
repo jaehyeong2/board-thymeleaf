@@ -7,6 +7,7 @@ import jjfactory.boardthymeleaf.business.dto.board.BoardDto;
 import jjfactory.boardthymeleaf.business.dto.board.BoardResponse;
 import jjfactory.boardthymeleaf.business.repository.board.BoardQueryRepository;
 import jjfactory.boardthymeleaf.business.repository.board.BoardRepository;
+import jjfactory.boardthymeleaf.global.dto.QueryModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,8 +26,9 @@ public class BoardService {
     private final BoardQueryRepository boardQueryRepository;
 
     @Transactional(readOnly = true)
-    public Page<BoardResponse> findBoards(Pageable pageable){
-        boardQueryRepository.findBoards(pageable);
+    public Page<BoardResponse> findBoards(Pageable pageable, QueryModel queryModel){
+        Page<BoardResponse> boards = boardQueryRepository.findBoards(pageable, queryModel);
+        return boards;
     }
 
     @Transactional
@@ -37,8 +39,8 @@ public class BoardService {
     }
 
     @Transactional
-    public Long create(BoardDto boardDto, User user) {
-        Board board = Board.createBoard(boardDto, user);
+    public Long create(BoardDto boardDto) {
+        Board board = Board.createBoard(boardDto);
         boardRepository.save(board);
         return board.getId();
     }

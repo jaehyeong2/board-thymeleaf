@@ -51,11 +51,11 @@ public class Board extends BaseTimeEntity {
         this.viewCount = viewCount;
     }
 
-    public static Board createBoard(BoardDto dto, User user){
+    public static Board createBoard(BoardDto dto){
         return builder()
                 .title(dto.getTitle())
                 .content(dto.getContent())
-                .user(user)
+//                .user(user)
 //                .category(category)
                 .likeCount(0)
                 .viewCount(0)

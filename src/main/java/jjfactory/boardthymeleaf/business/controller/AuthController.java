@@ -9,19 +9,20 @@ import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @Controller
-public class BaseController {
-    private final HttpSession httpSession;
+public class AuthController {
 
     @GetMapping("/")
     public String index(Model model){
+        return "board/list";
+    }
 
-//        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-//
-//        if(user != null) {
-//            model.addAttribute("userName", user.getName());
-//            model.addAttribute("userImg", user.getPicture());
-//        }
+    @GetMapping("/auth/login")
+    public String login(Model model){
+        return "auth/login";
+    }
 
-        return "index";
+    @GetMapping("/auth/signup")
+    public String signUp(Model model){
+        return "auth/signup";
     }
 }
